@@ -4,6 +4,7 @@ import uuid
 from datetime import datetime
 from models import storage
 
+
 class BaseModel():
 	""" defines all common attributes/methods for other classes"""
 	def __init__(self, *args, **kwargs):
