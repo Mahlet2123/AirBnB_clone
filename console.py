@@ -36,15 +36,63 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
             else:
                 key = f"{class_atr[0]}.{class_atr[1]}"
-                for k in storage.all().keys():
+                all_objs = storage.all()
+                for k in all_objs.keys():
                     if k == key:
-                        print (storage.classes_dict()[class_atr[0]]())
+                        obj = all_objs[key]
+                        print (obj)
                         return
                 print("** no instance found **")
 
     def do_destroy(self, line):
         """ Deletes an instance based on the class name and id
         (save the change into the JSON file) """
+        if line == "" or line is None:
+            print("** class name missing **")
+        else:
+            class_atr = line.split(" ")
+            if class_atr[0] not in storage.classes_dict():
+                print("** class doesn't exist **")
+            elif len(class_atr) == 1:
+                print("** instance id missing **")
+            else:
+                key = f"{class_atr[0]}.{class_atr[1]}"
+                all_objs = storage.all()
+                for k in all_objs.keys():
+                    if k == key:
+                        obj = all_objs[key]
+                        del storage.all()[key]
+                        obj.save()
+                        return
+                print("** no instance found **")
+
+    def do_all(self, line):
+        """ Prints all string representation of all instances
+        based or not on the class name. """
+
+        list = []
+        all_objs = storage.all()
+
+        if line != "" and line is not None:
+            arg = line.split(" ")
+            if arg[0] not in storage.classes_dict():
+                print("** class doesn't exist **")
+            else:
+                for key in all_objs.keys():
+                    if all_objs[key].__class__.__name__ == arg[0]:
+                        obj = all_objs[key]
+                        list.append(obj.__str__())
+        else:
+            for key in all_objs.keys():
+                obj = all_objs[key]
+                list.append(obj.__str__())
+        if len(list) > 0:
+            print (list)
+
+    def do_update(self, line):
+        """ Updates an instance based on the class name and id
+        by adding or updating attribute (save the change into
+        the JSON file). """
 
 
     def emptyline(self):
