@@ -12,7 +12,7 @@ else:
     name = m.group(1)
     class_name = m.group(2)
     id = m.group(3)
-    print (m.group())
+    print (type(m.group()))
     print ("----")
     print(f"{name}")
     print(f"{class_name}")

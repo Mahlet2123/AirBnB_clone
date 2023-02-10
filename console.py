@@ -98,16 +98,49 @@ class HBNBCommand(cmd.Cmd):
         if line == "" or line is None:
             print("** class name missing **")
         else:
-            line_pattern = ^(\w+)\s(?:(\S+))\s(\w+\s?\w+)\s("\w+\s?\w+")$
+            line_pattern = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
             m = re.search(line_pattern, line)
             class_name = m.group(1)
-            id = m.group(2)
+            class_id = m.group(2)
+            attribute = m.group(3)
+            value = m.group(4)
             
-            class_atr = line.split(" ")
-            if class_atr[0] not in storage.classes_dict():
-                print("** class doesn't exist **"
-            if class_atr[1] is None or type(class_atr[1]) is not uuid.UUID:
+            if class_name not in storage.classes_dict():
+                print("** class doesn't exist **")
+            elif class_id is None:
                 print("** instance id missing **")
+            else:
+                key = f"{class_name}.{class_id}"
+                all_objs = storage.all()
+                for k in all_objs.keys():
+                    if k == key:
+                        if attribute is None:
+                            print("** attribute name missing **")
+                            return
+                        elif value is None:
+                            print("** value missing **")
+                            return
+                        else:
+                            cast = None
+                            if not re.search('^".*"$', value):
+                                if '.' in value:
+                                    cast = float
+                                else:
+                                    cast = int
+                            else:
+                                value = value.replace('"', '')
+                            """attributes = storage.attr_dict()[classname]
+                            if attribute in attributes:
+                                value = attributes[attribute](value)"""
+                            if cast:
+                                try:
+                                    value = cast(value)
+                                except ValueError:
+                                    pass
+                            setattr(all_objs[key], attribute, value)
+                            all_objs[key].save()
+                            return
+                print("** no instance found **")
 
     def emptyline(self):
         """empty line is entered in response to the prompt"""
