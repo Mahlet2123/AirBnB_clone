@@ -1,8 +1,10 @@
 #!/usr/bin/python3
 """ the entry point of the command interpreter """
 import cmd
+import uuid
 from models.base_model import BaseModel
 from models import storage
+import re
 
 class HBNBCommand(cmd.Cmd):
     """the HBNBCommand class"""
@@ -93,7 +95,19 @@ class HBNBCommand(cmd.Cmd):
         """ Updates an instance based on the class name and id
         by adding or updating attribute (save the change into
         the JSON file). """
-
+        if line == "" or line is None:
+            print("** class name missing **")
+        else:
+            line_pattern = ^(\w+)\s(?:(\S+))\s(\w+\s?\w+)\s("\w+\s?\w+")$
+            m = re.search(line_pattern, line)
+            class_name = m.group(1)
+            id = m.group(2)
+            
+            class_atr = line.split(" ")
+            if class_atr[0] not in storage.classes_dict():
+                print("** class doesn't exist **"
+            if class_atr[1] is None or type(class_atr[1]) is not uuid.UUID:
+                print("** instance id missing **")
 
     def emptyline(self):
         """empty line is entered in response to the prompt"""
