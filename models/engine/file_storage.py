@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """ the file storage module """
+
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -18,6 +19,15 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
+    public_dict = {
+            'BaseModel': BaseModel,
+            'User': User,
+            'Place': Place,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Review': Review
+            }
 
     def all(self):
         """returns the dictionary __objects"""
@@ -30,24 +40,11 @@ class FileStorage:
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
-        with open(FileStorage.__file_path, "w", encoding="UTF-8") as w:
-            dct = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
-            json.dump(dct, w)
-
-    def classes_dict(self):
-        """Returns the available classes to avoid circular """
-
-        classes_dict = {
-            "BaseModel": BaseModel,
-            "User": User,
-            "Place": Place,
-            "State": State,
-            "City": City,
-            "Amenity": Amenity,
-            "Review": Review,
-        }
-
-        return classes_dict
+        file_dict = {}
+        for key, value in FileStorage.__objects.items():
+            file_dict[key] = value.to_dict()
+        with open(FileStorage.__file_path, "w", encoding="UTF-8") as myFile:
+            myFile.write(json.dumps(file_dict))
 
     def reload(self):
         """
@@ -56,13 +53,12 @@ class FileStorage:
         otherwise, do nothing. If the file doesn’t exist,
         no exception should be raised)
         """
+        reload_dict = {}
         try:
             with open(FileStorage.__file_path, "r", encoding="UTF-8") as r:
-                objects_dict = json.load(r)
-                objects_dict = {
-                    k: self.classes_dict()[v["__class__"]](**v)
-                    for k, v in objects_dict.items()
-                }
-                FileStorage.__objects = objects_dict
+                reload_dict = json.loads(r.read())
+            for key, value in reload_dict.items():
+                obj = FileStorage.public_dict[value['__class']](**value)
+                FileStorage.__objects[key] = obj
         except FileNotFoundError:
             pass
