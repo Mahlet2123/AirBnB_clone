@@ -65,14 +65,15 @@ class FileStorage:
         """
         try:
             with open(FileStorage.__file_path, "r", encoding="UTF-8") as r:
-                r_dict = json.load(r)
-                for value in r_dict.values()
-                    class_name = values[__class__]
-                    self.new(eval(class_name + "(**value)"))    
-                #r_dict = {
-                #   k: self.classes_dict()[v["__class__"]](**v)
-                #   for k, v in r_dict.items()}
-                FileStorage.__objects = r_dict
+                objects_dict = json.load(r)
+                #for value in objects_dict.values():
+                #   class_name = value["__class__"]
+                #   self.new(eval("{}".format(class_name) + "(**value)"))
+                objects_dict = {
+                    k: self.classes_dict()[v["__class__"]](**v)
+                    for k, v in objects_dict.items()
+                }
+                FileStorage.__objects = objects_dict
                 # print("--->",FileStorage.__objects, "<---")
                 # reverse process of the save method ^^^
         except FileNotFoundError:
