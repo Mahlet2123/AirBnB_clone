@@ -31,7 +31,7 @@ class FileStorage:
 
     def all(self):
         """returns the dictionary __objects"""
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
@@ -58,7 +58,7 @@ class FileStorage:
             with open(FileStorage.__file_path, "r", encoding="UTF-8") as r:
                 reload_dict = json.loads(r.read())
             for key, value in reload_dict.items():
-                obj = FileStorage.public_dict[value['__class']](**value)
+                obj = FileStorage.public_dict[value["__class__"]](**value)
                 FileStorage.__objects[key] = obj
         except FileNotFoundError:
             pass
