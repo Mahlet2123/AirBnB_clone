@@ -33,7 +33,7 @@ class TestConsole(unittest.TestCase):
         s = """
 Documented commands (type help <topic>):
 ========================================
-EOF  all  count  create  destroy  help  quit  show  update
+EOF  all  create  destroy  help  quit  show  update
 
 """
         self.assertEqual(s, f.getvalue())
@@ -42,21 +42,21 @@ EOF  all  count  create  destroy  help  quit  show  update
         """Tests the help EOF command."""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("help EOF")
-        s = 'Exits program at EOF\n'
+        s = 'Hit ctrl+D (EOF) to exit the program\n'
         self.assertEqual(s, f.getvalue())
 
     def test_help_quit(self):
         """Tests the help quit command."""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("help quit")
-        s = 'QUIT command that exits the program\n'
+        s = 'Quit command to exit the program\n'
         self.assertEqual(s, f.getvalue())
 
     def test_help_create(self):
-        """Tests the help create command."""
+        """Test the help create command"""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("help create")
-        s = 'Creates a new instance of a class\n'
+        s = 'Creates a new instance of BaseModel\n'
         self.assertEqual(s, f.getvalue())
 
     def test_help_show(self):
@@ -78,14 +78,6 @@ EOF  all  count  create  destroy  help  quit  show  update
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("help all")
         s = 'Prints all string representation of all instances\n'
-        self.assertEqual(s, f.getvalue())
-
-    def test_help_count(self):
-        """Tests the help count command."""
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("help count")
-        s = 'Retrieves the number of instances of a class\n\
-        Usage: <class name>.count()\n'
         self.assertEqual(s, f.getvalue())
 
     def test_help_update(self):

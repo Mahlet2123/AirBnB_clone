@@ -13,9 +13,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb)"
 
     def do_create(self, line):
-        """Creates a new instance of BaseModel
-        saves it (to the JSON file) and
-        prints the id"""
+        """Creates a new instance of BaseModel"""
         if line == "" or line is None:
             print("** class name missing **")
         elif line not in storage.classes_dict():
@@ -26,8 +24,7 @@ class HBNBCommand(cmd.Cmd):
             print(base1.id)
 
     def do_show(self, line):
-        """Prints the string representation of
-        an instance based on the class name and id"""
+        """Prints the string representation of an instance"""
 
         if line == "" or line is None:
             print("** class name missing **")
@@ -48,8 +45,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_destroy(self, line):
-        """Deletes an instance based on the class name and id
-        (save the change into the JSON file)"""
+        """Deletes an instance based on the class name and id"""
         if line == "" or line is None:
             print("** class name missing **")
         else:
@@ -70,8 +66,7 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, line):
-        """Prints all string representation of all instances
-        based or not on the class name."""
+        """Prints all string representation of all instances"""
 
         list = []
         all_objs = storage.all()
@@ -93,9 +88,7 @@ class HBNBCommand(cmd.Cmd):
             print(list)
 
     def do_update(self, line):
-        """Updates an instance based on the class name and id
-        by adding or updating attribute (save the change into
-        the JSON file)."""
+        """Updates an instance based on the class name and id"""
         if line == "" or line is None:
             print("** class name missing **")
         else:
@@ -150,10 +143,11 @@ class HBNBCommand(cmd.Cmd):
 
     def do_quit(self, line):
         """Quit command to exit the program"""
-        exit()
+        return True
 
     def do_EOF(self, line):
         """Hit ctrl+D (EOF) to exit the program"""
+        print()
         return True
 
 
