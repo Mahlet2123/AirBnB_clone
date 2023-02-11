@@ -6,6 +6,7 @@ from models.base_model import BaseModel
 from models import storage
 import re
 
+
 class HBNBCommand(cmd.Cmd):
     """the HBNBCommand class"""
 
@@ -25,8 +26,8 @@ class HBNBCommand(cmd.Cmd):
             print(base1.id)
 
     def do_show(self, line):
-        """ Prints the string representation of
-        an instance based on the class name and id """
+        """Prints the string representation of
+        an instance based on the class name and id"""
 
         if line == "" or line is None:
             print("** class name missing **")
@@ -42,13 +43,13 @@ class HBNBCommand(cmd.Cmd):
                 for k in all_objs.keys():
                     if k == key:
                         obj = all_objs[key]
-                        print (obj)
+                        print(obj)
                         return
                 print("** no instance found **")
 
     def do_destroy(self, line):
-        """ Deletes an instance based on the class name and id
-        (save the change into the JSON file) """
+        """Deletes an instance based on the class name and id
+        (save the change into the JSON file)"""
         if line == "" or line is None:
             print("** class name missing **")
         else:
@@ -69,8 +70,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
     def do_all(self, line):
-        """ Prints all string representation of all instances
-        based or not on the class name. """
+        """Prints all string representation of all instances
+        based or not on the class name."""
 
         list = []
         all_objs = storage.all()
@@ -89,22 +90,23 @@ class HBNBCommand(cmd.Cmd):
                 obj = all_objs[key]
                 list.append(obj.__str__())
         if len(list) > 0:
-            print (list)
+            print(list)
 
     def do_update(self, line):
-        """ Updates an instance based on the class name and id
+        """Updates an instance based on the class name and id
         by adding or updating attribute (save the change into
-        the JSON file). """
+        the JSON file)."""
         if line == "" or line is None:
             print("** class name missing **")
         else:
-            line_pattern = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|(?:(\S)+)))?)?)?'
+            line_pattern = (r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|\
+                          (?:(\S)+)))?)?)?')
             m = re.search(line_pattern, line)
             class_name = m.group(1)
             class_id = m.group(2)
             attribute = m.group(3)
             value = m.group(4)
-            
+
             if class_name not in storage.classes_dict():
                 print("** class doesn't exist **")
             elif class_id is None:
@@ -123,12 +125,12 @@ class HBNBCommand(cmd.Cmd):
                         else:
                             cast = None
                             if not re.search('^".*"$', value):
-                                if '.' in value:
+                                if "." in value:
                                     cast = float
                                 else:
                                     cast = int
                             else:
-                                value = value.replace('"', '')
+                                value = value.replace('"', "")
                             """attributes = storage.attr_dict()[classname]
                             if attribute in attributes:
                                 value = attributes[attribute](value)"""
