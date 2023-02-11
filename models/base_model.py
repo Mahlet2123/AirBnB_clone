@@ -3,7 +3,7 @@
 
 
 import uuid
-import datetime
+from datetime import datetime
 import models
 
 
@@ -47,8 +47,8 @@ class BaseModel:
         new_dict = {}
         new_dict["__class__"] = self.__class__.__name__
         for key, value in self.__dict__.items():
-            if isinstance(value, (datetime, )):
-                new_dict[key] = value.isoformat()
+            if isinstance(value, (datetime.datetime, )):
+                new_dict[key] = value.strftime(time)
             else:
                 new_dict[key] = value
         return new_dict
