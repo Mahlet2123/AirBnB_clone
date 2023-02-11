@@ -18,7 +18,8 @@ class FileStorage:
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
-        FileStorage.__objects[f"{type(obj).__name__}.{obj.id}"] = obj
+        key = "{}.{}".format(type(obj).__name__, obj.id)
+        FileStorage.__objects[key] = obj
 
         # print("--->", FileStorage.__objects, "<---")
         # {'BaseModel.15a72150-6ed8-47c1-9b7a-3c6bda8b0d69': <models
@@ -65,10 +66,12 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path, "r", encoding="UTF-8") as r:
                 r_dict = json.load(r)
-                r_dict = {
-                    k: self.classes_dict()[v["__class__"]](**v)
-                    for k, v in r_dict.items()
-                }
+                for value in r_dict.values()
+                    class_name = values[__class__]
+                    self.new(eval(class_name + "(**value)"))    
+                #r_dict = {
+                #   k: self.classes_dict()[v["__class__"]](**v)
+                #   for k, v in r_dict.items()}
                 FileStorage.__objects = r_dict
                 # print("--->",FileStorage.__objects, "<---")
                 # reverse process of the save method ^^^
