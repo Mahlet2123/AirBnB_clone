@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime
 import models
 
-date_format = "%Y-%m-%dT%H:%M:%S.%f"
+date = "%Y-%m-%dT%H:%M:%S.%f"
 
 
 class BaseModel:
@@ -20,10 +20,10 @@ class BaseModel:
                     pass
                 elif key == "created_at":
                     self.created_at = datetime. \
-                                      strptime(value, date_format)
+                                      strptime(value, date)
                 elif key == "updated_at":
                     self.updated_at = datetime. \
-                                      strptime(value, date_format)
+                                      strptime(value, date)
                 else:
                     setattr(self, key, value)
         else:
@@ -48,7 +48,7 @@ class BaseModel:
         new_dict = self.__dict__.copy()
         new_dict["__class__"] = self.__class__.__name__
         if "created_at" in new_dict:
-            new_dict["created_at"] = new_dict["created_at"].strftime(time)
+            new_dict["created_at"] = new_dict["created_at"].strftime(date)
         if "updated_at" in new_dict:
-            new_dict["updated_at"] = new_dict["updated_at"].strftime(time)
+            new_dict["updated_at"] = new_dict["updated_at"].strftime(date)
         return new_dict
