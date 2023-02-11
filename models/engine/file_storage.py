@@ -46,6 +46,25 @@ class FileStorage:
         with open(FileStorage.__file_path, "w", encoding="UTF-8") as myFile:
             myFile.write(json.dumps(file_dict))
 
+    def classes_dict(self):
+        """collection of classes"""
+        from models.user import User
+        from models.place import Place
+        from models.city import City
+        from models.amenity import Amenity
+        from models.state import State
+        from models.review import Review
+        classes_dict = {
+                'BaseModel': BaseModel,
+                'User': User,
+                'Place': Place,
+                'State': State,
+                'City': City,
+                'Amenity': Amenity,
+                'Review': Review
+                }
+        return classes_dict
+
     def reload(self):
         """
         deserializes the JSON file to __objects
