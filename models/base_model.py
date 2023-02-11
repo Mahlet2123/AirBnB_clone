@@ -6,6 +6,8 @@ import uuid
 from datetime import datetime
 import models
 
+date_format = "%Y-%m-%dT%H:%M:%S.%f"
+
 
 class BaseModel:
     """defines all common attributes/methods for other classes"""
@@ -14,7 +16,6 @@ class BaseModel:
         """the constructor of a BaseModel"""
         if kwargs:
             for key, value in kwargs.items():
-                date_format = "%Y-%m-%dT%H:%M:%S.%f"
                 if key == "__class__":
                     pass
                 elif key == "created_at":
