@@ -138,6 +138,10 @@ class HBNBCommand(cmd.Cmd):
                             return
                 print("** no instance found **")
 
+    def default(self, line):
+        """Default command that handles class cmds: <class name>.func()"""
+        
+
     def emptyline(self):
         """empty line is entered in response to the prompt"""
         pass
