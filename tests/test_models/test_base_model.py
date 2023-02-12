@@ -51,7 +51,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertTrue(hasattr(self.base_model, "created_at"))
         self.assertTrue(hasattr(self.base_model, "updated_at"))
 
-        datenow = datetime.datetime.now()
+        datenow = datetime.datetime.today()
         self.testmodel = BaseModel()
         self.assertNotEqual(self.testmodel.created_at, datenow)
         self.assertNotEqual(self.testmodel.created_at,
