@@ -77,7 +77,8 @@ class FileStorage:
             with open(FileStorage.__file_path, "r", encoding="UTF-8") as r:
                 reload_dict = json.load(r)
             for key, value in reload_dict.items():
-                obj = FileStorage.public_dict[value["__class__"]](**value)
+                #obj = FileStorage.public_dict[value["__class__"]](**value)
+                obj = eval(value['__class__'])(**value)
                 FileStorage.__objects[key] = obj
         except FileNotFoundError:
             pass

@@ -16,7 +16,7 @@ class BaseModel:
         if kwargs:
             for key, value in kwargs.items():
                 if key == "__class__":
-                    pass
+                    continue    
                 elif key == "created_at":
                     self.created_at = datetime. \
                                       strptime(value, date)
@@ -52,7 +52,7 @@ class BaseModel:
         new_dict = self.__dict__.copy()
         new_dict["__class__"] = self.__class__.__name__
         if "created_at" in new_dict:
-            new_dict["created_at"] = new_dict["created_at"].strftime(date)
+            new_dict["created_at"] = datetime.now().isoformat()
         if "updated_at" in new_dict:
-            new_dict["updated_at"] = new_dict["updated_at"].strftime(date)
+            new_dict["updated_at"] = datetime.now().isoformat()
         return new_dict
