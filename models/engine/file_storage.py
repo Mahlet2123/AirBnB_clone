@@ -20,14 +20,14 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
     public_dict = {
-            'BaseModel': BaseModel,
-            'User': User,
-            'Place': Place,
-            'State': State,
-            'City': City,
-            'Amenity': Amenity,
-            'Review': Review
-            }
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "State": State,
+        "City": City,
+        "Amenity": Amenity,
+        "Review": Review,
+    }
 
     def all(self):
         """returns the dictionary __objects"""
@@ -54,15 +54,16 @@ class FileStorage:
         from models.amenity import Amenity
         from models.state import State
         from models.review import Review
+
         classes_dict = {
-                'BaseModel': BaseModel,
-                'User': User,
-                'Place': Place,
-                'State': State,
-                'City': City,
-                'Amenity': Amenity,
-                'Review': Review
-                }
+            "BaseModel": BaseModel,
+            "User": User,
+            "Place": Place,
+            "State": State,
+            "City": City,
+            "Amenity": Amenity,
+            "Review": Review,
+        }
         return classes_dict
 
     def reload(self):
@@ -77,8 +78,8 @@ class FileStorage:
             with open(FileStorage.__file_path, "r", encoding="UTF-8") as r:
                 reload_dict = json.load(r)
             for key, value in reload_dict.items():
-                #obj = FileStorage.public_dict[value["__class__"]](**value)
-                obj = eval(value['__class__'])(**value)
+                # obj = FileStorage.public_dict[value["__class__"]](**value)
+                obj = eval(value["__class__"])(**value)
                 FileStorage.__objects[key] = obj
         except FileNotFoundError:
             pass

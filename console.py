@@ -93,8 +93,8 @@ class HBNBCommand(cmd.Cmd):
         if line == "" or line is None:
             print("** class name missing **")
         else:
-            line_pattern = (r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|\
-                          (?:(\S)+)))?)?)?')
+            line_pattern = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|\
+                          (?:(\S)+)))?)?)?'
             m = re.search(line_pattern, line)
             class_name = m.group(1)
             class_id = m.group(2)
@@ -140,7 +140,6 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, line):
         """Default command that handles class cmds: <class name>.func()"""
-        
 
     def emptyline(self):
         """empty line is entered in response to the prompt"""
