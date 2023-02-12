@@ -44,7 +44,7 @@ class FileStorage:
         for key, value in FileStorage.__objects.items():
             file_dict[key] = value.to_dict()
         with open(FileStorage.__file_path, "w", encoding="UTF-8") as myFile:
-            myFile.write(json.dumps(file_dict))
+            json.dump(file_dict, myFile, indent=2)
 
     def classes_dict(self):
         """collection of classes"""
@@ -75,7 +75,7 @@ class FileStorage:
         reload_dict = {}
         try:
             with open(FileStorage.__file_path, "r", encoding="UTF-8") as r:
-                reload_dict = json.loads(r.read())
+                reload_dict = json.load(r)
             for key, value in reload_dict.items():
                 obj = FileStorage.public_dict[value["__class__"]](**value)
                 FileStorage.__objects[key] = obj
