@@ -1,6 +1,14 @@
 #!/usr/bin/python3
 """ the file storage module """
+
 import json
+from models.base_model import BaseModel
+from models.user import User
+from models.place import Place
+from models.city import City
+from models.amenity import Amenity
+from models.state import State
+from models.review import Review
 
 
 class FileStorage:
@@ -11,49 +19,50 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
+    public_dict = {
+            'BaseModel': BaseModel,
+            'User': User,
+            'Place': Place,
+            'State': State,
+            'City': City,
+            'Amenity': Amenity,
+            'Review': Review
+            }
 
     def all(self):
         """returns the dictionary __objects"""
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
-        key = "{}.{}".format(type(obj).__name__, obj.id)
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
-
-        # print("--->", FileStorage.__objects, "<---")
-        # {'BaseModel.15a72150-6ed8-47c1-9b7a-3c6bda8b0d69': <models
-        # .base_model.BaseModel object at 0x7f7a3053b3a0>}
 
     def save(self):
         """serializes __objects to the JSON file (path: __file_path)"""
-        with open(FileStorage.__file_path, "w", encoding="UTF-8") as w:
-            dct = {k: v.to_dict() for k, v in FileStorage.__objects.items()}
-            json.dump(dct, w)
-        # print("--->", dct, "<---")
-        # {'BaseModel.11b9feda-2553-4ffc-8792-4cb0c7cf7a54': {'id': '...'
-        # , ... '__class__': 'BaseModel'}}
+        file_dict = {}
+        for key, value in FileStorage.__objects.items():
+            file_dict[key] = value.to_dict()
+        with open(FileStorage.__file_path, "w", encoding="UTF-8") as myFile:
+            myFile.write(json.dumps(file_dict))
 
     def classes_dict(self):
-        """Returns the available classes to avoid circular import"""
-        from models.base_model import BaseModel
+        """collection of classes"""
         from models.user import User
         from models.place import Place
-        from models.state import State
         from models.city import City
         from models.amenity import Amenity
+        from models.state import State
         from models.review import Review
-
         classes_dict = {
-            "BaseModel": BaseModel,
-            "User": User,
-            "Place": Place,
-            "State": State,
-            "City": City,
-            "Amenity": Amenity,
-            "Review": Review,
-        }
-
+                'BaseModel': BaseModel,
+                'User': User,
+                'Place': Place,
+                'State': State,
+                'City': City,
+                'Amenity': Amenity,
+                'Review': Review
+                }
         return classes_dict
 
     def reload(self):
@@ -63,18 +72,12 @@ class FileStorage:
         otherwise, do nothing. If the file doesn’t exist,
         no exception should be raised)
         """
+        reload_dict = {}
         try:
             with open(FileStorage.__file_path, "r", encoding="UTF-8") as r:
-                objects_dict = json.load(r)
-                #for value in objects_dict.values():
-                #   class_name = value["__class__"]
-                #   self.new(eval("{}".format(class_name) + "(**value)"))
-                objects_dict = {
-                    k: self.classes_dict()[v["__class__"]](**v)
-                    for k, v in objects_dict.items()
-                }
-                FileStorage.__objects = objects_dict
-                # print("--->",FileStorage.__objects, "<---")
-                # reverse process of the save method ^^^
+                reload_dict = json.loads(r.read())
+            for key, value in reload_dict.items():
+                obj = FileStorage.public_dict[value["__class__"]](**value)
+                FileStorage.__objects[key] = obj
         except FileNotFoundError:
             pass
