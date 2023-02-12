@@ -13,7 +13,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """the constructor of a BaseModel"""
-        if kwargs:
+        if kwargs and kwargs is not None:
             for key, value in kwargs.items():
                 if key == "__class__":
                     continue    
@@ -23,13 +23,8 @@ class BaseModel:
                 elif key == "updated_at":
                     self.updated_at = datetime. \
                                       strptime(value, date)
-                if 'id' not in kwargs.keys():
-                    self.id = str(uuid4())
-                if 'created_at' not in kwargs.keys():
-                    self.created_at = datetime.now()
-                if 'updated_at' not in kwargs.keys():
-                    self.updated_at = datetime.now()
-                setattr(self, key, value)
+                else:
+                    setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.today()
@@ -52,7 +47,7 @@ class BaseModel:
         new_dict = self.__dict__.copy()
         new_dict["__class__"] = self.__class__.__name__
         if "created_at" in new_dict:
-            new_dict["created_at"] = datetime.now().isoformat()
+            new_dict["created_at"] = self.created_at.isoformat()
         if "updated_at" in new_dict:
-            new_dict["updated_at"] = datetime.now().isoformat()
+            new_dict["updated_at"] = self.updated_at.isoformat()
         return new_dict
