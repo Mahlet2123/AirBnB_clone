@@ -4,7 +4,6 @@ from datetime import datetime
 from uuid import uuid4
 import models
 
-date = "%Y-%m-%dT%H:%M:%S.%f"
 
 class BaseModel:
     """ construct """
@@ -16,9 +15,9 @@ class BaseModel:
                 if key == '__class__':
                     continue
                 elif key == 'updated_at':
-                    value = datetime.strptime(value, date)
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 elif key == 'created_at':
-                    value = datetime.strptime(value, date)
+                    value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 if 'id' not in kwargs.keys():
                     self.id = str(uuid4())
                 if 'created_at' not in kwargs.keys():
@@ -29,7 +28,7 @@ class BaseModel:
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
-            self.updated_at = datetime.now()
+            self.updated_at = self.created_at
             models.storage.new(self)
 
     def __str__(self):
