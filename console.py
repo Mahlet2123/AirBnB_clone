@@ -162,7 +162,8 @@ class HBNBCommand(cmd.Cmd):
         match = re.search(pattern, line)
         if match:
             classname, command, arg = match.groups()
-        line = "{} {} {}".format(command, classname, arg)
+            arg = arg.replace('"', "")
+            line = "{} {} {}".format(command, classname, arg)
         return cmd.Cmd.precmd(self, line)
 
     def emptyline(self):
