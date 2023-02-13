@@ -162,7 +162,17 @@ class HBNBCommand(cmd.Cmd):
         match = re.search(pattern, line)
         if match:
             classname, command, arg = match.groups()
-            arg = arg.replace('"', "")
+            #arg = arg.replace('"', "")
+            if "," in arg:
+                arg = arg.replace(",", "")
+                arg_pattern = r'^(\S+)\s(\S+)\s(\S+)'
+                match1 = re.search(arg_pattern, arg)
+                if match1:                    
+                    id, attr_name, value = match1.groups()
+                    id = id.replace('"', "")
+                    attr_name = attr_name.replace('"', "")
+                    arg = "{} {} {}".format(id, attr_name, value)
+                    
             line = "{} {} {}".format(command, classname, arg)
         return cmd.Cmd.precmd(self, line)
 
