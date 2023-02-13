@@ -101,7 +101,11 @@ class HBNBCommand(cmd.Cmd):
             attribute = m.group(3)
             value = m.group(4)
 
-            line_pattern2 = 
+            line_pattern2 = r'^(\S+)\s(\S+)\s(.*)'
+            m1 = re.search(line_pattern2, line)
+            class_name = m1.group(1)
+            class_id = m1.group(2)
+            attr_dict = m1.group(3)
 
             if class_name not in storage.classes_dict():
                 print("** class doesn't exist **")
@@ -112,30 +116,34 @@ class HBNBCommand(cmd.Cmd):
                 all_objs = storage.all()
                 for k in all_objs.keys():
                     if k == key:
-                        if attribute is None:
-                            print("** attribute name missing **")
-                            return
-                        elif value is None:
-                            print("** value missing **")
-                            return
-                        else:
-                            cast = None
-                            if not re.search('^".*"$', value):
-                                if "." in value:
-                                    cast = float
-                                else:
-                                    cast = int
+                        if m:
+                            if attribute is None:
+                                print("** attribute name missing **")
+                                return
+                            elif value is None:
+                                print("** value missing **")
+                                return
                             else:
-                                value = value.replace('"', "")
-
-                            if cast:
-                                try:
-                                    value = cast(value)
-                                except ValueError:
-                                    pass
-                            setattr(all_objs[key], attribute, value)
+                                cast = None
+                                if not re.search('^".*"$', value):
+                                    if "." in value:
+                                        cast = float
+                                    else:
+                                        cast = int
+                                else:
+                                    value = value.replace('"', "")
+                                if cast:
+                                    try:
+                                        value = cast(value)
+                                    except ValueError:
+                                        pass
+                                setattr(all_objs[key], attribute, value)
+                                all_objs[key].save()
+                                return
+                        if m1:
+                            res = all_objs.update(json.loads(attr_dict))
+                            print (res)
                             all_objs[key].save()
-                            return
                 print("** no instance found **")
 
         # --- Advanced tasks ---
@@ -179,7 +187,6 @@ class HBNBCommand(cmd.Cmd):
                     attr_dict = attr_dict.replace("'", '"')
                     arg = "{} {}".format(id, attr_dict)
             line = "{} {} {}".format(command, classname, arg)
-            print (line)
         return cmd.Cmd.precmd(self, line)
 
     def emptyline(self):
