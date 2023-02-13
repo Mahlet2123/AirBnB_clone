@@ -93,13 +93,15 @@ class HBNBCommand(cmd.Cmd):
         if line == "" or line is None:
             print("** class name missing **")
         else:
-            line_pattern = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|\
+            line_pattern1 = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|\
                           (?:(\S)+)))?)?)?'
-            m = re.search(line_pattern, line)
+            m = re.search(line_pattern1, line)
             class_name = m.group(1)
             class_id = m.group(2)
             attribute = m.group(3)
             value = m.group(4)
+
+            line_pattern2 = 
 
             if class_name not in storage.classes_dict():
                 print("** class doesn't exist **")
@@ -125,9 +127,7 @@ class HBNBCommand(cmd.Cmd):
                                     cast = int
                             else:
                                 value = value.replace('"', "")
-                            """attributes = storage.attr_dict()[classname]
-                            if attribute in attributes:
-                                value = attributes[attribute](value)"""
+
                             if cast:
                                 try:
                                     value = cast(value)
@@ -164,16 +164,22 @@ class HBNBCommand(cmd.Cmd):
             classname, command, arg = match.groups()
             #arg = arg.replace('"', "")
             if "," in arg:
-                arg = arg.replace(",", "")
-                arg_pattern = r'^(\S+)\s(\S+)\s(\S+)'
-                match1 = re.search(arg_pattern, arg)
+                arg_pattern1 = r'^(\S+),\s(\S+),\s(\S+)'
+                match1 = re.search(arg_pattern1, arg)
+                arg_pattern2 = r'^(\S+),\s(.*)'
+                match2 = re.search(arg_pattern2, arg)
                 if match1:                    
                     id, attr_name, value = match1.groups()
                     id = id.replace('"', "")
                     attr_name = attr_name.replace('"', "")
                     arg = "{} {} {}".format(id, attr_name, value)
-                    
+                elif match2:
+                    id, attr_dict = match2.groups()
+                    id = id.replace('"', "")
+                    attr_dict = attr_dict.replace("'", '"')
+                    arg = "{} {}".format(id, attr_dict)
             line = "{} {} {}".format(command, classname, arg)
+            print (line)
         return cmd.Cmd.precmd(self, line)
 
     def emptyline(self):
