@@ -29,8 +29,8 @@ class TestReview(unittest.TestCase):
     def test_place_id(self):
         """Test the place_id attribute"""
         self.assertEqual(type(self.c1.place_id), str)
-        self.assertEqual(self.c1.name, "")
-        self.assertNotEqual(self.c1.name, None)
+        self.assertEqual(self.c1.place_id, "")
+        self.assertNotEqual(self.c1.place_id, None)
 
     def test_user_id(self):
         """Test the user_id attribute"""

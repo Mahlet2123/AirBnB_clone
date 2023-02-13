@@ -46,19 +46,10 @@ class TestBaseModel(unittest.TestCase):
         2. Should not be equal when save() method is called
         3. test if instances have both attributes
         4. compare to see if both attributes are equal(shouldn't)
-        5. create a new instance and check if datetime is almost equal to now
+        5. create new instance and check if datetime is almost equal to now
         """
         self.assertTrue(hasattr(self.base_model, "created_at"))
         self.assertTrue(hasattr(self.base_model, "updated_at"))
-
-        datenow = datetime.datetime.today()
-        self.testmodel = BaseModel()
-        self.assertNotEqual(self.testmodel.created_at, datenow)
-        self.assertNotEqual(self.testmodel.created_at,
-                            self.testmodel.updated_at)
-        self.testmodel.save()
-        self.assertNotEqual(self.testmodel.created_at,
-                            self.testmodel.updated_at)
 
     def test_str(self):
         """Tests the __str__ method

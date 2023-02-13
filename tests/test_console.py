@@ -33,7 +33,7 @@ class TestConsole(unittest.TestCase):
         s = """
 Documented commands (type help <topic>):
 ========================================
-EOF  all  create  destroy  help  quit  show  update
+EOF  all  count  create  destroy  help  quit  show  update
 
 """
         self.assertEqual(s, f.getvalue())
