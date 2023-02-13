@@ -139,6 +139,64 @@ class HBNBCommand(cmd.Cmd):
                 print("** no instance found **")
 
         # --- Advanced tasks ---
+    def dict_update(self, classname, uid, s_dict):
+        """updates an instance from a dictionary"""
+        s = s_dict.replace("'", '"')
+        d = json.loads(s)
+        if not classname:
+            print("** class name missing **")
+        elif classname not in storage.classes():
+            print("** class doesn't exist **")
+        elif uid is None:
+            print("** instance id missing **")
+        else:
+            key = "{}.{}".format(classname, uid)
+            if key not in storage.all():
+                print("** no instance found **")
+            else:
+                attributes = storage.attributes()[classname]
+                for attribute, value in d.items():
+                    if attribute in attributes:
+                        value = attributes[attribute](value)
+                    setattr(storage.all()[key], attribute, value)
+                storage.all()[key].save()
+
+    def adv_parser(self, arg):
+        """Rearranges commands of syntax class.< command >()"""
+        match = re.search(r"^(\w*)\.(\w+)(?:\(([^)]*)\))$", arg)
+        if not match:
+            return arg
+        classname = match.group(1)
+        method = match.group(2)
+        args = match.group(3)
+        match_uid_and_args = re.search('^"([^"]*)"(?:, (.*))?$', args)
+        if match_uid_and_args:
+            uid = match_uid_and_args.group(1)
+            attr_or_dict = match_uid_and_args.group(2)
+        else:
+            uid = args
+            attr_or_dict = False
+        attr_and_value = ""
+        if method == "update" and attr_or_dict:
+            match_dict = re.search('^({.*})$', attr_or_dict)
+            if match_dict:
+                self.update_dict(classname, uid, match_dict.group(1))
+                return ""
+            match_attr_and_value = re.search(
+                '^(?:"([^"]*)")?(?:, (.*))?$', attr_or_dict)
+            if match_attr_and_value:
+                attr_and_value = (match_attr_and_value.group(
+                    1) or "") + " " + (match_attr_and_value.group(2) or "")
+        command = method + " " + classname + " " + uid + " " + attr_and_value
+        self.onecmd(command)
+        return command
+
+    def default(self, arg):
+        """Redirects input to adv_parser when syntax doesn't match"""
+        response = self.adv_parser(arg)
+        if response == arg:
+            print("*** Unknown syntax:", arg)
+
     def do_count(self, line):
         """Retrieves the number of instances of a class
         Usage: <class name>.count()"""
@@ -155,15 +213,6 @@ class HBNBCommand(cmd.Cmd):
                 if line == classs[0]:
                     instances += 1
             print(instances)
-
-    def precmd(self, line):
-        """precmd command that handles class cmds: <class name>.func()"""
-        pattern = r'^(\S+)\.(\S+)\((.*)\)'
-        match = re.search(pattern, line)
-        if match:
-            classname, command, arg = match.groups()
-        line = "{} {} {}".format(command, classname, arg)
-        return cmd.Cmd.precmd(self, line)
 
     def emptyline(self):
         """empty line is entered in response to the prompt"""
