@@ -57,27 +57,18 @@ h4 {
     margin-top: 20px;
 }
 
-.amenities .popover li {
-    margin: 10px 40px;
-}
+.popover h2 {
+	 font-size: 16px;
+ }
 
 .popover li ul {
-    margin-top: 10px;
-    list-style-type: none;
-}
-
-.popover li h2 {
-    font-size: 16px;
-    margin-left: 40px;
-}
-
-.popover li ul li {
-    margin: 10px 40px;
-}
+	 list-style-type: none;
+ }
 
 .locations:hover .popover {
     visibility: visible;
 }
+
 .amenities:hover .popover {
     visibility: visible;
 }
