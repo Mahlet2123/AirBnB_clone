@@ -45,16 +45,15 @@ h4 {
 }
 
 .popover{
-    background-color: #FAFAFA;
-    width: 170px;
-    padding: 40px;
-    border: solid 1px #DDDDDD;
-    border-radius: 4px;
-    list-style-type: none;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    visibility: hidden;
-    margin-top: 20px;
+	background-color: #FAFAFA;
+	width: 170px;
+	padding: 40px;
+	border: 1px solid #DDDDDD;
+	border-radius: 4px;
+	list-style-type: none;
+	/*visibility: hidden;*/
+	display: none;
+	margin-top: 20px;
 }
 
 .popover h2 {
@@ -66,9 +65,9 @@ h4 {
  }
 
 .locations:hover .popover {
-    visibility: visible;
+	display: block;
 }
 
 .amenities:hover .popover {
-    visibility: visible;
+	display: block;
 }
