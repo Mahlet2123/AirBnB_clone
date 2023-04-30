@@ -15,6 +15,7 @@ class BaseModel:
                 if key == '__class__':
                     continue
                 elif key == 'updated_at':
+                    OB
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 elif key == 'created_at':
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
@@ -47,4 +48,5 @@ class BaseModel:
         aux_dict['__class__'] = self.__class__.__name__
         aux_dict['created_at'] = self.created_at.isoformat()
         aux_dict['updated_at'] = self.updated_at.isoformat()
+        OB
         return aux_dict
