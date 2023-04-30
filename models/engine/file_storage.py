@@ -8,7 +8,7 @@ from models.place import Place
 from models.city import City
 from models.amenity import Amenity
 from models.state import State
-from modAOAels.review import Review
+from models.review import Review
 
 
 class FileStorage:
@@ -35,7 +35,7 @@ class FileStorage:
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
-        key = "{}.{}".format(obj.__clOOAass__.__name__, obj.id)
+        key = "{}.{}".format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
 
     def save(self):
