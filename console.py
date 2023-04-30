@@ -101,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
             attribute = m.group(3)
             value = m.group(4)
 
-            line_pattern2 = r'^(\S+)\s(\S+)\s(.*)'
+            line_pattern2 = r"^(\S+)\s(\S+)\s(.*)"
             m1 = re.search(line_pattern2, line)
             class_name = m1.group(1)
             class_id = m1.group(2)
@@ -142,11 +142,12 @@ class HBNBCommand(cmd.Cmd):
                                 return
                         if m1:
                             res = all_objs.update(json.loads(attr_dict))
-                            print (res)
+                            print(res)
                             all_objs[key].save()
                 print("** no instance found **")
 
         # --- Advanced tasks ---
+
     def do_count(self, line):
         """Retrieves the number of instances of a class
         Usage: <class name>.count()"""
@@ -166,17 +167,17 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """precmd command that handles class cmds: <class name>.func()"""
-        pattern = r'^(\S+)\.(\S+)\((.*)\)'
+        pattern = r"^(\S+)\.(\S+)\((.*)\)"
         match = re.search(pattern, line)
         if match:
             classname, command, arg = match.groups()
-            #arg = arg.replace('"', "")
+            # arg = arg.replace('"', "")
             if "," in arg:
-                arg_pattern1 = r'^(\S+),\s(\S+),\s(\S+)'
+                arg_pattern1 = r"^(\S+),\s(\S+),\s(\S+)"
                 match1 = re.search(arg_pattern1, arg)
-                arg_pattern2 = r'^(\S+),\s(.*)'
+                arg_pattern2 = r"^(\S+),\s(.*)"
                 match2 = re.search(arg_pattern2, arg)
-                if match1:                    
+                if match1:
                     id, attr_name, value = match1.groups()
                     id = id.replace('"', "")
                     attr_name = attr_name.replace('"', "")
