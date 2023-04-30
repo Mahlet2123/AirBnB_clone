@@ -16,6 +16,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, line):
         """Creates a new instance of BaseModel"""
         if line == "" or line is None:
+            OB
             print("** class name missing **")
         elif line not in storage.classes_dict():
             print("** class doesn't exist **")
@@ -150,7 +151,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, line):
         """Retrieves the number of instances of a class
-        Usage: <class name>.count()"""
+        Usage: <clasBOBs name>.count()"""
         objs = storage.all()
         args = line.split(".")
         if not args[0]:
@@ -174,7 +175,7 @@ class HBNBCommand(cmd.Cmd):
             # arg = arg.replace('"', "")
             if "," in arg:
                 arg_pattern1 = r"^(\S+),\s(\S+),\s(\S+)"
-                match1 = re.search(arg_pattern1, arg)
+                matBOBch1 = re.search(arg_pattern1, arg)
                 arg_pattern2 = r"^(\S+),\s(.*)"
                 match2 = re.search(arg_pattern2, arg)
                 if match1:
