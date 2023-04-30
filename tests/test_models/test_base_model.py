@@ -44,21 +44,36 @@ class TestBaseModel(unittest.TestCase):
         4. compare to see if both attributes are equal(shouldn't)
         5. create new instance and check if datetime is almost equal to now
         """
+        # Test that created_at and updated_at are datesA
+        self.assertIsInstance(self.base_model.created_at, datetime.datetime)
+        self.assertIsInstance(self.base_model.updated_at, datetime.datetime)
+        # Test that instances have both created_at and updated_at attributes
         self.assertTrue(hasattr(self.base_model, "created_at"))
         self.assertTrue(hasattr(self.base_model, "updated_at"))
+        # Test that created_at and updated_at are equal when instance is created
+        self.assertEqual(self.base_model.created_at, self.base_model.updated_at)
+        # Test that created_at and updated_at aren't equal after save() is called
+        self.base_model.save()
+        self.assertNotEqual(self.base_model.created_at, self.base_model.updated_at)
 
     def test_str(self):
         """Tests the __str__ method
         The expected output should be in the format:
         [<class name>] (<self.id>) <self.__dict__>
         """
-
+        string = str(self.base_model)
+        expected_string = "[{}] ({}) {}".format(
+                self.base_model.__class__.__name__,
+                self.base_model.id,
+                self.base_model.__dict__)
+        self.assertEqual(string, expected_string)
+    
     def test_todict(self):
         """Tests the to_dict() method:
         1. By using self.__dict__: return only instance attributes
         2. a __class__ key should be added to the dictionary
         3. the datetime(created_at and updated_at should be strings
-            format -> %Y-%m-%dT%H:%M:%S.%f
+            format -> %Y-OOA%m-%dT%H:%M:%S.%f
         """
         model_dict = self.base_model.to_dict()
         self.assertTrue(type(model_dict), dict)
