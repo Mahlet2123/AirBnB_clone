@@ -2,12 +2,8 @@
 """
 Tests for the BaseModel
 """
-
-
 import unittest
 import datetime
-
-# from AirBnB_clone import models
 from models.base_model import BaseModel
 
 
@@ -69,13 +65,8 @@ class TestBaseModel(unittest.TestCase):
         for key in model_dict:
             # check if the keys contain strings
             self.assertTrue(type(key), str)
-            self.assertNotEqual(key, None)  # check if the keys are empty
-
-    # def tearDown(self):
-    #     """Disposes the instances of the class created"""
-    #     self.base_model.dispose()
-    #     self.base_model1.dispose()
-    #     self.testmodel.dispose()
+            # check if the keys are empty
+            self.assertNotEqual(key, None)
 
 
 if __name__ == '__main__':

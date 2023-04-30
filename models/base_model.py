@@ -15,7 +15,6 @@ class BaseModel:
                 if key == '__class__':
                     continue
                 elif key == 'updated_at':
-                    OB
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
                 elif key == 'created_at':
                     value = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
