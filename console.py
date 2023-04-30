@@ -16,7 +16,6 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, line):
         """Creates a new instance of BaseModel"""
         if line == "" or line is None:
-            OB
             print("** class name missing **")
         elif line not in storage.classes_dict():
             print("** class doesn't exist **")
@@ -57,7 +56,7 @@ class HBNBCommand(cmd.Cmd):
             elif len(class_atr) == 1:
                 print("** instance id missing **")
             else:
-                key = f"{class_atr[0]}.{class_atr[1]}"
+                key = "{}.{}".format(class_atr[0], {class_atr[1])
                 all_objs = storage.all()
                 for k in all_objs.keys():
                     if k == key:
@@ -147,11 +146,11 @@ class HBNBCommand(cmd.Cmd):
                             all_objs[key].save()
                 print("** no instance found **")
 
-        # --- Advanced tasks ---
+    # --- Advanced tasks ---
 
     def do_count(self, line):
         """Retrieves the number of instances of a class
-        Usage: <clasBOBs name>.count()"""
+        Usage: <class name>.count()"""
         objs = storage.all()
         args = line.split(".")
         if not args[0]:
