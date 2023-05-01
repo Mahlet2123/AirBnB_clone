@@ -3,12 +3,6 @@
 
 import json
 from models.base_model import BaseModel
-from models.user import User
-from models.place import Place
-from models.city import City
-from models.amenity import Amenity
-from models.state import State
-from models.review import Review
 
 
 class FileStorage:
@@ -19,15 +13,6 @@ class FileStorage:
 
     __file_path = "file.json"
     __objects = {}
-    public_dict = {
-        "BaseModel": BaseModel,
-        "User": User,
-        "Place": Place,
-        "State": State,
-        "City": City,
-        "Amenity": Amenity,
-        "Review": Review,
-    }
 
     def all(self):
         """returns the dictionary __objects"""
@@ -79,7 +64,7 @@ class FileStorage:
                 reload_dict = json.load(r)
             for key, value in reload_dict.items():
                 # obj = FileStorage.public_dict[value["__class__"]](**value)
-                obj = eval(value["__class__"])(**value)
+                obj = self.classes_dict()[value["__class__"]](**value)
                 FileStorage.__objects[key] = obj
         except FileNotFoundError:
             pass
