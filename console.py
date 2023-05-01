@@ -176,7 +176,7 @@ class HBNBCommand(cmd.Cmd):
             # arg = arg.replace('"', "")
             if "," in arg:
                 arg_pattern1 = r"^(\S+),\s(\S+),\s(\S+)"
-                matBOBch1 = re.search(arg_pattern1, arg)
+                match1 = re.search(arg_pattern1, arg)
                 arg_pattern2 = r"^(\S+),\s(.*)"
                 match2 = re.search(arg_pattern2, arg)
                 if match1:
