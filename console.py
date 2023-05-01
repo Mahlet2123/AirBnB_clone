@@ -96,23 +96,25 @@ class HBNBCommand(cmd.Cmd):
             line_pattern1 = r'^(\S+)(?:\s(\S+)(?:\s(\S+)(?:\s((?:"[^"]*")|\
                           (?:(\S)+)))?)?)?'
             m = re.search(line_pattern1, line)
-            class_name = m.group(1)
-            class_id = m.group(2)
-            attribute = m.group(3)
-            value = m.group(4)
+            if m:
+                class_name = m.group(1)
+                class_id = m.group(2)
+                attribute = m.group(3)
+                value = m.group(4)
 
-            line_pattern2 = r"^(\S+)\s(\S+)\s(.*)"
+            line_pattern2 = r'^(\S+)\s(\S+)\s(.*)'
             m1 = re.search(line_pattern2, line)
-            class_name = m1.group(1)
-            class_id = m1.group(2)
-            attr_dict = m1.group(3)
+            if m1:
+                class_name = m1.group(1)
+                class_id = m1.group(2)
+                attr_dict = m1.group(3)
 
             if class_name not in storage.classes_dict():
                 print("** class doesn't exist **")
             elif class_id is None:
                 print("** instance id missing **")
             else:
-                key = f"{class_name}.{class_id}"
+                key = "{}.{}".format(class_name, class_id)
                 all_objs = storage.all()
                 for k in all_objs.keys():
                     if k == key:
