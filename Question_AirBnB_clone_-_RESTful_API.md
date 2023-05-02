@@ -21,7 +21,8 @@ Install Flask
     $ pip3 install Flask
 
 ## Tasks
-<mandatory>
+### mandatory
+<details>
 ### 0. Restart from scratch!
 <details>
  
@@ -653,4 +654,4 @@ Now you can see this HTTP Response Header: < Access-Control-Allow-Origin: 0.0.0.
     guillaume@ubuntu:~/AirBnB_v3$ 
  
 </details>
-</mandatory>
+</details>
