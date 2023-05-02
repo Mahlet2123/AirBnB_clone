@@ -25,8 +25,11 @@ Install Flask
 <details>
  
 No no no! We are already too far in the project to restart everything.
+ 
 But once again, let’s work on a new codebase.
+ 
 For this project you will fork this [codebase](https://github.com/alexaorrico/AirBnB_clone_v2):
+ 
 - Update the repository name to AirBnB_clone_v3
 - Update the README.md:
     - Add yourself as an author of the project
@@ -105,7 +108,9 @@ Don’t forget to add new tests for these 2 methods on each storage engine.
  
  ### 3. Status of your API
  <details>
+  
 It’s time to start your API!
+  
 Your first endpoint (route) will be to return the status of your API:
 
     guillaume@ubuntu:~/AirBnB_v3$ HBNB_MYSQL_USER=hbnb_dev HBNB_MYSQL_PWD=hbnb_dev_pwd HBNB_MYSQL_HOST=localhost HBNB_MYSQL_DB=hbnb_dev_db HBNB_TYPE_STORAGE=db HBNB_API_HOST=0.0.0.0 HBNB_API_PORT=5000 python3 -m api.v1.app
@@ -146,5 +151,4 @@ Ok, let starts:
 - create a file index.py
     - import app_views from api.v1.views
     - create a route /status on the object app_views that returns a JSON: "status": "OK" (see example)
-  
  </details>
