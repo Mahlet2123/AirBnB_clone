@@ -23,7 +23,7 @@ Install Flask
 ## Tasks
 ### mandatory
 <details>
-<summary>Title 1</summary>
+ <summary>Title 1</summary>
 ### 0. Restart from scratch!
 <details>
  
