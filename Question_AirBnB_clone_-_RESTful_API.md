@@ -174,7 +174,43 @@ Create an endpoint that retrieves the number of each objects by type:
     guillaume@ubuntu:~/AirBnB_v3$ 
 
 </details>
-  
+
+### 5. Not found
+<details>
+ 
+Designers are really creative when they have to design a “404 page”, a “Not found”… 34 brilliantly designed 404 error pages
+
+Today it’s different, because you won’t use HTML and CSS, but JSON!
+
+In api/v1/app.py, create a handler for 404 errors that returns a JSON-formatted 404 status code response. The content should be: "error": "Not found"
+
+    guillaume@ubuntu:~/AirBnB_v3$ curl -X GET http://0.0.0.0:5000/api/v1/nop
+    {
+      "error": "Not found"
+    }
+    guillaume@ubuntu:~/AirBnB_v3$ curl -X GET http://0.0.0.0:5000/api/v1/nop -vvv
+    *   Trying 0.0.0.0...
+    * TCP_NODELAY set
+    * Connected to 0.0.0.0 (127.0.0.1) port 5000 (#0)
+    > GET /api/v1/nop HTTP/1.1
+    > Host: 0.0.0.0:5000
+    > User-Agent: curl/7.51.0
+    > Accept: */*
+    > 
+    * HTTP 1.0, assume close after body
+    < HTTP/1.0 404 NOT FOUND
+    < Content-Type: application/json
+    < Content-Length: 27
+    < Server: Werkzeug/0.12.1 Python/3.4.3
+    < Date: Fri, 14 Apr 2017 23:43:24 GMT
+    < 
+    {
+      "error": "Not found"
+    }
+    guillaume@ubuntu:~/AirBnB_v3$ 
+---
+</details>
+
 6. State
 <details>
  
@@ -298,38 +334,3 @@ Updates a State object: PUT /api/v1/states/<state_id>
   
 </details>
 
-### 5. Not found
-<details>
- 
-Designers are really creative when they have to design a “404 page”, a “Not found”… 34 brilliantly designed 404 error pages
-
-Today it’s different, because you won’t use HTML and CSS, but JSON!
-
-In api/v1/app.py, create a handler for 404 errors that returns a JSON-formatted 404 status code response. The content should be: "error": "Not found"
-
-    guillaume@ubuntu:~/AirBnB_v3$ curl -X GET http://0.0.0.0:5000/api/v1/nop
-    {
-      "error": "Not found"
-    }
-    guillaume@ubuntu:~/AirBnB_v3$ curl -X GET http://0.0.0.0:5000/api/v1/nop -vvv
-    *   Trying 0.0.0.0...
-    * TCP_NODELAY set
-    * Connected to 0.0.0.0 (127.0.0.1) port 5000 (#0)
-    > GET /api/v1/nop HTTP/1.1
-    > Host: 0.0.0.0:5000
-    > User-Agent: curl/7.51.0
-    > Accept: */*
-    > 
-    * HTTP 1.0, assume close after body
-    < HTTP/1.0 404 NOT FOUND
-    < Content-Type: application/json
-    < Content-Length: 27
-    < Server: Werkzeug/0.12.1 Python/3.4.3
-    < Date: Fri, 14 Apr 2017 23:43:24 GMT
-    < 
-    {
-      "error": "Not found"
-    }
-    guillaume@ubuntu:~/AirBnB_v3$ 
- 
-</details>
