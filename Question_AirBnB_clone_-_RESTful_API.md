@@ -22,7 +22,7 @@ Install Flask
 
 ## Tasks
 ### 0. Restart from scratch!
-
+<details>
 No no no! We are already too far in the project to restart everything.
 But once again, let’s work on a new codebase.
 For this project you will fork this [codebase](https://github.com/alexaorrico/AirBnB_clone_v2):
@@ -32,7 +32,8 @@ Add yourself as an author of the project
 Add new information about your new contribution
 Make it better!
 If you’re the owner of this codebase, create a new repository called AirBnB_clone_v3 and copy over all files from AirBnB_clone_v2
-   
+</details>
+
 ### 1. Never fail!
 
 At Holberton, we have a lot of tests, and they all pass! Just for the Intranet itself, there are:
@@ -57,15 +58,15 @@ Update DBStorage and FileStorage, adding two new methods. All changes should be 
 A method to retrieve one object:
 
 - Prototype: def get(self, cls, id):
-* cls: class
-* id: string representing the object ID
+    - cls: class
+    - id: string representing the object ID
 - Returns the object based on the class and its ID, or None if not found
 
 A method to count the number of objects in storage:
 
 - Prototype: def count(self, cls=None):
-* cls: class (optional)
-* Returns the number of objects in storage matching the given class. If no class is passed, returns the count of all objects in storage.
+    - cls: class (optional)
+- Returns the number of objects in storage matching the given class. If no class is passed, returns the count of all objects in storage.
 
 Don’t forget to add new tests for these 2 methods on each storage engine.
 
