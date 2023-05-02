@@ -24,11 +24,8 @@ Install Flask
 ### 0. Restart from scratch!
 
 No no no! We are already too far in the project to restart everything.
-
 But once again, let’s work on a new codebase.
-
-For this project you will fork this codebase:
-
+For this project you will fork this [codebase](https://github.com/alexaorrico/AirBnB_clone_v2):
 Update the repository name to AirBnB_clone_v3
 Update the README.md:
 Add yourself as an author of the project
@@ -39,9 +36,8 @@ If you’re the owner of this codebase, create a new repository called AirBnB_cl
 ### 1. Never fail!
 
 At Holberton, we have a lot of tests, and they all pass! Just for the Intranet itself, there are:
-
-    5,213 assertions (as of 08/20/2018)
-    13,061 assertions (as of 01/25/2021)
+- 5,213 assertions (as of 08/20/2018)
+- 13,061 assertions (as of 01/25/2021)
 
 The following requirements must be met for your project:
 
@@ -60,15 +56,17 @@ Update DBStorage and FileStorage, adding two new methods. All changes should be 
 
 A method to retrieve one object:
 
-Prototype: def get(self, cls, id):
-cls: class
-id: string representing the object ID
-Returns the object based on the class and its ID, or None if not found
+- Prototype: def get(self, cls, id):
+* cls: class
+* id: string representing the object ID
+- Returns the object based on the class and its ID, or None if not found
+
 A method to count the number of objects in storage:
 
-Prototype: def count(self, cls=None):
-cls: class (optional)
-Returns the number of objects in storage matching the given class. If no class is passed, returns the count of all objects in storage.
+- Prototype: def count(self, cls=None):
+* cls: class (optional)
+* Returns the number of objects in storage matching the given class. If no class is passed, returns the count of all objects in storage.
+
 Don’t forget to add new tests for these 2 methods on each storage engine.
 
     guillaume@ubuntu:~/AirBnB_v3$ cat test_get_count.py
