@@ -21,9 +21,7 @@ Install Flask
     $ pip3 install Flask
 
 ## Tasks
-### mandatory
-<details>
- <summary>Title 1</summary>
+<details><summary>Mandatory</summary>
 ### 0. Restart from scratch!
 <details>
  
