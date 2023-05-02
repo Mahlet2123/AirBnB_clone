@@ -40,8 +40,9 @@ If you’re the owner of this codebase, create a new repository called AirBnB_cl
 
 At Holberton, we have a lot of tests, and they all pass! Just for the Intranet itself, there are:
 
-5,213 assertions (as of 08/20/2018)
-13,061 assertions (as of 01/25/2021)
+    5,213 assertions (as of 08/20/2018)
+    13,061 assertions (as of 01/25/2021)
+
 The following requirements must be met for your project:
 
 all current tests must pass (don’t delete them…)
@@ -53,7 +54,7 @@ add new tests as much as you can (tests are mandatory for some tasks)
     OK
     guillaume@ubuntu:~/AirBnB_v3$ 
 
-2. Improve storage
+### 2. Improve storage
 
 Update DBStorage and FileStorage, adding two new methods. All changes should be done in the branch storage_get_count:
 
