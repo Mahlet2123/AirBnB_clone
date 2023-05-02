@@ -23,6 +23,7 @@ Install Flask
 ## Tasks
 ### 0. Restart from scratch!
 <details>
+ 
 No no no! We are already too far in the project to restart everything.
 But once again, let’s work on a new codebase.
 For this project you will fork this [codebase](https://github.com/alexaorrico/AirBnB_clone_v2):
@@ -32,10 +33,13 @@ Add yourself as an author of the project
 Add new information about your new contribution
 Make it better!
 If you’re the owner of this codebase, create a new repository called AirBnB_clone_v3 and copy over all files from AirBnB_clone_v2
+
 </details>
 
 ### 1. Never fail!
 
+<details>
+ 
 At Holberton, we have a lot of tests, and they all pass! Just for the Intranet itself, there are:
 - 5,213 assertions (as of 08/20/2018)
 - 13,061 assertions (as of 01/25/2021)
@@ -51,6 +55,8 @@ add new tests as much as you can (tests are mandatory for some tasks)
     OK
     guillaume@ubuntu:~/AirBnB_v3$ 
 
+ </details>
+ 
 ### 2. Improve storage
 
 Update DBStorage and FileStorage, adding two new methods. All changes should be done in the branch storage_get_count:
