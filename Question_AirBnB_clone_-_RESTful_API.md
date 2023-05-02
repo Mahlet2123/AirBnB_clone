@@ -1,5 +1,6 @@
 # 0x05. AirBnB clone - RESTful API
 By: Guillaume, CTO at Holberton School
+
 Weight: 2
  
 Project to be done in teams of 2 people
