@@ -23,7 +23,7 @@ Install Flask
 ## Tasks
 ### mandatory
 <details>
- 
+<summary>Title 1</summary>
 ### 0. Restart from scratch!
 <details>
  
@@ -659,7 +659,7 @@ Now you can see this HTTP Response Header: < Access-Control-Allow-Origin: 0.0.0.
 
 ### Advanced
 <details>
-
+<summary>Title 2</summary>
 ### 13. Place - Amenity
 <details>
 - Create a new view for the link between Place objects and Amenity objects that handles all default RESTFul API actions:
