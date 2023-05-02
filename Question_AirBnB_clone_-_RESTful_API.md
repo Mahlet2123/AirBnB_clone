@@ -332,36 +332,35 @@ In api/v1/app.py, create a handler for 404 errors that returns a JSON-formatted 
 ### 7. City
 <details>
 
-Same as State, create a new view for City objects that handles all default RESTFul API actions:
+- Same as State, create a new view for City objects that handles all default RESTFul API actions:
+    - In the file api/v1/views/cities.py
+    - You must use to_dict() to serialize an object into valid JSON
+    - Update api/v1/views/__init__.py to import this new file
 
-In the file api/v1/views/cities.py
-You must use to_dict() to serialize an object into valid JSON
-Update api/v1/views/__init__.py to import this new file
-Retrieves the list of all City objects of a State: GET /api/v1/states/<state_id>/cities
+- Retrieves the list of all City objects of a State: GET /api/v1/states/<state_id>/cities
+    - If the state_id is not linked to any State object, raise a 404 error
 
-If the state_id is not linked to any State object, raise a 404 error
-Retrieves a City object. : GET /api/v1/cities/<city_id>
+- Retrieves a City object. : GET /api/v1/cities/<city_id>
+    - If the city_id is not linked to any City object, raise a 404 error
 
-If the city_id is not linked to any City object, raise a 404 error
-Deletes a City object: DELETE /api/v1/cities/<city_id>
+- Deletes a City object: DELETE /api/v1/cities/<city_id>
+    - If the city_id is not linked to any City object, raise a 404 error
+    - Returns an empty dictionary with the status code 200
 
-If the city_id is not linked to any City object, raise a 404 error
-Returns an empty dictionary with the status code 200
-Creates a City: POST /api/v1/states/<state_id>/cities
-
-You must use request.get_json from Flask to transform the HTTP body request to a dictionary
-If the state_id is not linked to any State object, raise a 404 error
-If the HTTP body request is not a valid JSON, raise a 400 error with the message Not a JSON
-If the dictionary doesn’t contain the key name, raise a 400 error with the message Missing name
-Returns the new City with the status code 201
-Updates a City object: PUT /api/v1/cities/<city_id>
-
-If the city_id is not linked to any City object, raise a 404 error
-You must use request.get_json from Flask to transform the HTTP body request to a dictionary
-If the HTTP request body is not valid JSON, raise a 400 error with the message Not a JSON
-Update the City object with all key-value pairs of the dictionary
-Ignore keys: id, state_id, created_at and updated_at
-Returns the City object with the status code 200
+- Creates a City: POST /api/v1/states/<state_id>/cities
+    - You must use request.get_json from Flask to transform the HTTP body request to a dictionary
+    - If the state_id is not linked to any State object, raise a 404 error
+    - If the HTTP body request is not a valid JSON, raise a 400 error with the message Not a JSON
+    - If the dictionary doesn’t contain the key name, raise a 400 error with the message Missing name
+    - Returns the new City with the status code 201
+ 
+- Updates a City object: PUT /api/v1/cities/<city_id>
+    - If the city_id is not linked to any City object, raise a 404 error
+    - You must use request.get_json from Flask to transform the HTTP body request to a dictionary
+    - If the HTTP request body is not valid JSON, raise a 400 error with the message Not a JSON
+    - Update the City object with all key-value pairs of the dictionary
+    - Ignore keys: id, state_id, created_at and updated_at
+    - Returns the City object with the status code 200
  
     guillaume@ubuntu:~/AirBnB_v3$ curl -X GET http://0.0.0.0:5000/api/v1/states/not_an_id/cities/
     {
@@ -463,6 +462,193 @@ Returns the City object with the status code 200
     {
       "error": "Not found"
     }
+    guillaume@ubuntu:~/AirBnB_v3$ 
+ 
+</details>
+
+### 8. Amenity
+<details>
+- Create a new view for Amenity objects that handles all default RESTFul API actions:
+    - In the file api/v1/views/amenities.py
+    - You must use to_dict() to serialize an object into valid JSON
+    - Update api/v1/views/__init__.py to import this new file
+
+- Retrieves the list of all Amenity objects: GET /api/v1/amenities
+
+- Retrieves a Amenity object: GET /api/v1/amenities/<amenity_id>
+    - If the amenity_id is not linked to any Amenity object, raise a 404 error
+
+- Deletes a Amenity object:: DELETE /api/v1/amenities/<amenity_id>
+    - If the amenity_id is not linked to any Amenity object, raise a 404 error
+    - Returns an empty dictionary with the status code 200
+
+- Creates a Amenity: POST /api/v1/amenities
+    - You must use request.get_json from Flask to transform the HTTP request to a dictionary
+    - If the HTTP request body is not valid JSON, raise a 400 error with the message Not a JSON
+    - If the dictionary doesn’t contain the key name, raise a 400 error with the message Missing name
+    - Returns the new Amenity with the status code 201
+
+- Updates a Amenity object: PUT /api/v1/amenities/<amenity_id>
+    - If the amenity_id is not linked to any Amenity object, raise a 404 error
+    - You must use request.get_json from Flask to transform the HTTP request to a dictionary
+    - If the HTTP request body is not valid JSON, raise a 400 error with the message Not a JSON
+    - Update the Amenity object with all key-value pairs of the dictionary
+    - Ignore keys: id, created_at and updated_at
+    - Returns the Amenity object with the status code 200
+</details>
+    
+### 9. User
+<details>
+- Create a new view for User object that handles all default RESTFul API actions:
+    - In the file api/v1/views/users.py
+    - You must use to_dict() to retrieve an object into a valid JSON
+    - Update api/v1/views/__init__.py to import this new file
+
+- Retrieves the list of all User objects: GET /api/v1/users
+
+- Retrieves a User object: GET /api/v1/users/<user_id>
+    - If the user_id is not linked to any User object, raise a 404 error
+
+- Deletes a User object:: DELETE /api/v1/users/<user_id>
+    - If the user_id is not linked to any User object, raise a 404 error
+    - Returns an empty dictionary with the status code 200
+
+Creates a User: POST /api/v1/users
+    - You must use request.get_json from Flask to transform the HTTP body request to a dictionary
+    - If the HTTP body request is not valid JSON, raise a 400 error with the message Not a JSON
+    - If the dictionary doesn’t contain the key email, raise a 400 error with the message Missing email
+    - If the dictionary doesn’t contain the key password, raise a 400 error with the message Missing password
+    - Returns the new User with the status code 201
+
+ Updates a User object: PUT /api/v1/users/<user_id>
+    - If the user_id is not linked to any User object, raise a 404 error
+    - You must use request.get_json from Flask to transform the HTTP body request to a dictionary
+    - If the HTTP body request is not valid JSON, raise a 400 error with the message Not a JSON
+    - Update the User object with all key-value pairs of the dictionary
+    - Ignore keys: id, email, created_at and updated_at
+    - Returns the User object with the status code 200
+</details>
+    
+### 10. Place
+<details>
+- Create a new view for Place objects that handles all default RESTFul API actions:
+    - In the file api/v1/views/places.py
+    - You must use to_dict() to retrieve an object into a valid JSON
+    - Update api/v1/views/__init__.py to import this new file
+ 
+- Retrieves the list of all Place objects of a City: GET /api/v1/cities/<city_id>/places
+    - If the city_id is not linked to any City object, raise a 404 error
+
+- Retrieves a Place object. : GET /api/v1/places/<place_id>
+    - If the place_id is not linked to any Place object, raise a 404 error
+
+- Deletes a Place object: DELETE /api/v1/places/<place_id>
+    - If the place_id is not linked to any Place object, raise a 404 error
+    - Returns an empty dictionary with the status code 200
+
+- Creates a Place: POST /api/v1/cities/<city_id>/places
+    You must use request.get_json from Flask to transform the HTTP request to a dictionary
+    If the city_id is not linked to any City object, raise a 404 error
+    If the HTTP request body is not valid JSON, raise a 400 error with the message Not a JSON
+    If the dictionary doesn’t contain the key user_id, raise a 400 error with the message Missing user_id
+    If the user_id is not linked to any User object, raise a 404 error
+    If the dictionary doesn’t contain the key name, raise a 400 error with the message Missing name
+    Returns the new Place with the status code 201
+ 
+- Updates a Place object: PUT /api/v1/places/<place_id>
+    - If the place_id is not linked to any Place object, raise a 404 error
+    - You must use request.get_json from Flask to transform the HTTP request to a dictionary
+    - If the HTTP request body is not valid JSON, raise a 400 error with the message Not a JSON
+    - Update the Place object with all key-value pairs of the dictionary
+    - Ignore keys: id, user_id, city_id, created_at and updated_at
+    - Returns the Place object with the status code 200
+
+</details>
+    
+### 11. Reviews
+<details>
+ 
+- Create a new view for Review object that handles all default RESTFul API actions:
+    - In the file api/v1/views/places_reviews.py
+    - You must use to_dict() to retrieve an object into valid JSON
+    - Update api/v1/views/__init__.py to import this new file
+
+- Retrieves the list of all Review objects of a Place: GET /api/v1/places/<place_id>/reviews
+    - If the place_id is not linked to any Place object, raise a 404 error
+
+- Retrieves a Review object. : GET /api/v1/reviews/<review_id>
+    - If the review_id is not linked to any Review object, raise a 404 error
+
+- Deletes a Review object: DELETE /api/v1/reviews/<review_id>
+    - If the review_id is not linked to any Review object, raise a 404 error
+    - Returns an empty dictionary with the status code 200
+ 
+- Creates a Review: POST /api/v1/places/<place_id>/reviews
+    - You must use request.get_json from Flask to transform the HTTP request to a dictionary
+    - If the place_id is not linked to any Place object, raise a 404 error
+    - If the HTTP body request is not valid JSON, raise a 400 error with the message Not a JSON
+    - If the dictionary doesn’t contain the key user_id, raise a 400 error with the message Missing user_id
+    - If the user_id is not linked to any User object, raise a 404 error
+    - If the dictionary doesn’t contain the key text, raise a 400 error with the message Missing text
+    - Returns the new Review with the status code 201
+ 
+- Updates a Review object: PUT /api/v1/reviews/<review_id>
+    - If the review_id is not linked to any Review object, raise a 404 error
+    - You must use request.get_json from Flask to transform the HTTP request to a dictionary
+    - If the HTTP request body is not valid JSON, raise a 400 error with the message Not a JSON
+    - Update the Review object with all key-value pairs of the dictionary
+    - Ignore keys: id, user_id, place_id, created_at and updated_at
+    - Returns the Review object with the status code 200
+ 
+</details>
+    
+### 12. HTTP access control (CORS)
+<details>
+A resource makes a cross-origin HTTP request when it requests a resource from a different domain, or port, than the one the first resource itself serves.
+
+Read the full definition [here](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+
+Why do we need this?
+
+Because you will soon start allowing a web client to make requests your API. If your API doesn’t have a correct CORS setup, your web client won’t be able to access your data.
+
+With Flask, it’s really easy, you will use the class CORS of the module flask_cors.
+
+How to install it: $ pip3 install flask_cors
+
+Update api/v1/app.py to create a CORS instance allowing: /* for 0.0.0.0
+
+You will update it later when you will deploy your API to production.
+
+Now you can see this HTTP Response Header: < Access-Control-Allow-Origin: 0.0.0.0
+
+    guillaume@ubuntu:~/AirBnB_v3$ curl -X GET http://0.0.0.0:5000/api/v1/cities/1da255c0-f023-4779-8134-2b1b40f87683 -vvv
+    *   Trying 0.0.0.0...
+    * TCP_NODELAY set
+    * Connected to 0.0.0.0 (127.0.0.1) port 5000 (#0)
+    > GET /api/v1/states/2b9a4627-8a9e-4f32-a752-9a84fa7f4efd/cities/1da255c0-f023-4779-8134-2b1b40f87683 HTTP/1.1
+    > Host: 0.0.0.0:5000
+    > User-Agent: curl/7.51.0
+    > Accept: */*
+    > 
+    * HTTP 1.0, assume close after body
+    < HTTP/1.0 200 OK
+    < Content-Type: application/json
+    < Access-Control-Allow-Origin: 0.0.0.0
+    < Content-Length: 236
+    < Server: Werkzeug/0.12.1 Python/3.4.3
+    < Date: Sun, 16 Apr 2017 04:20:13 GMT
+    < 
+    {
+      "__class__": "City", 
+      "created_at": "2017-03-25T02:17:06", 
+      "id": "1da255c0-f023-4779-8134-2b1b40f87683", 
+      "name": "New Orleans", 
+      "state_id": "2b9a4627-8a9e-4f32-a752-9a84fa7f4efd", 
+      "updated_at": "2017-03-25T02:17:06"
+    }
+    * Curl_http_done: called premature == 0
+    * Closing connection 0
     guillaume@ubuntu:~/AirBnB_v3$ 
  
 </details>
