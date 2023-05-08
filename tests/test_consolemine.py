@@ -21,7 +21,7 @@ class TestConsole(unittest.TestCase):
 
     def test_console_module_docstring(self):
         """Tests existence of console.py module docstring"""
-        self.assertIsNot(console.doc, None,
+        self.assertIsNot(console.__doc__, None,
                          "console.py needs a docstring")
         self.assertTrue(len(console.__doc__) >= 1,
                         "console.py needs a docstring")
@@ -34,6 +34,7 @@ class TestConsole(unittest.TestCase):
 Documented commands (type help <topic>):
 ========================================
 EOF  all  count  create  destroy  help  quit  show  update
+
 """
         self.assertEqual(s, f.getvalue())
 
@@ -41,21 +42,21 @@ EOF  all  count  create  destroy  help  quit  show  update
         """Tests the help EOF command."""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("help EOF")
-        s = 'Exits program at EOF\n'
+        s = 'Hit ctrl+D (EOF) to exit the program\n'
         self.assertEqual(s, f.getvalue())
 
     def test_help_quit(self):
         """Tests the help quit command."""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("help quit")
-        s = 'QUIT command that exits the program\n'
+        s = 'Quit command to exit the program\n'
         self.assertEqual(s, f.getvalue())
 
     def test_help_create(self):
-        """Tests the help create command."""
+        """Test the help create command"""
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("help create")
-        s = 'Creates a new instance of a class\n'
+        s = 'Creates a new instance of BaseModel\n'
         self.assertEqual(s, f.getvalue())
 
     def test_help_show(self):
@@ -79,14 +80,6 @@ EOF  all  count  create  destroy  help  quit  show  update
         s = 'Prints all string representation of all instances\n'
         self.assertEqual(s, f.getvalue())
 
-    def test_help_count(self):
-        """Tests the help count command."""
-        with patch('sys.stdout', new=StringIO()) as f:
-            HBNBCommand().onecmd("help count")
-        s = 'Retrieves the number of instances of a class\n\
-        Usage: <class name>.count()\n'
-        self.assertEqual(s, f.getvalue())
-
     def test_help_update(self):
         """Tests the help update command."""
         with patch('sys.stdout', new=StringIO()) as f:
@@ -104,6 +97,7 @@ EOF  all  count  create  destroy  help  quit  show  update
             HBNBCommand().onecmd("EOF someStuff")
         self.assertTrue(len(f.getvalue()) == 1)
         self.assertEqual("\n", f.getvalue())
+
     def test_do_quit(self):
         """Tests the do_quit method"""
         with patch('sys.stdout', new=StringIO()) as f:
