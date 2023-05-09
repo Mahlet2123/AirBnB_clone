@@ -151,8 +151,7 @@ class HBNBCommand(cmd.Cmd):
     # --- Advanced tasks ---
 
     def do_count(self, line):
-        """Retrieves the number of instances of a class
-        Usage: <class name>.count()"""
+        """Retrieves the number of instances of a class"""
         objs = storage.all()
         args = line.split(".")
         if not args[0]:
