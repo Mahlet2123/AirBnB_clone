@@ -12,6 +12,15 @@ import console
 import pycodestyle
 
 
+class_list = [
+            "BaseModel",
+            "User",
+            "State",
+            "City",
+            "Place",
+            "Review"
+            ]
+
 class TestHBNBCommand_prompting(unittest.TestCase):
     """Unittests for testing prompting of the HBNB command interpreter."""
 
@@ -182,3 +191,148 @@ class TestHBNBCommand_create(unittest.TestCase):
             HBNBCommand().onecmd("create Review")
         key = "Review.{}".format(output.getvalue().strip())
         self.assertIn(key, storage.all())
+
+class TestHBNBCommand_show(unittest.TestCase):
+    """ unittests for the show method """
+    def test_error1(self):
+        """ class name missing error """
+        h = "** class name missing **"
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("show")
+        self.assertEqual(h, output.getvalue().strip())
+        h = "*** Unknown syntax: .show()"
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd(".show()")
+        self.assertEqual(h, output.getvalue().strip())
+
+    def test_error2(self):
+        """ class does not exist """
+        h = "** class doesn't exist **"
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("show MyModel")
+        self.assertEqual(h, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            line = HBNBCommand().precmd("MyModel.show()")
+            HBNBCommand().onecmd(line)
+        self.assertEqual(h, output.getvalue().strip())
+
+    def test_error3(self):
+        """ instance id missing """
+        h = "** instance id missing **"
+        for class_name in class_list:
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("show {}".format(class_name))
+            self.assertEqual(h, output.getvalue().strip())
+            with patch("sys.stdout", new=StringIO()) as output:
+                line = HBNBCommand().precmd("{}.show()".format(class_name))
+                HBNBCommand().onecmd(line)
+            self.assertEqual(h, output.getvalue().strip())
+
+    def test_error4(self):
+        """ no instance found """
+        h = "** no instance found **"
+        for class_name in class_list:
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("show {} somerandomid".format(class_name))
+            self.assertEqual(h, output.getvalue().strip())
+            with patch("sys.stdout", new=StringIO()) as output:
+                line = HBNBCommand().precmd("{}.show(somerandomid)".format(class_name))
+                HBNBCommand().onecmd(line)
+            self.assertEqual(h, output.getvalue().strip())
+
+    def test_show_instance(self):
+        """ test if it shows the specified instance"""
+        for class_name in class_list:
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("create {}".format(class_name))
+            obj_id = output.getvalue().strip()
+            obj = storage.all()["{}.{}".format(class_name, obj_id)]
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("show {} {}".format(class_name, obj_id))
+            self.assertEqual(obj.__str__(), output.getvalue().strip())
+            with patch("sys.stdout", new=StringIO()) as output:
+                line = HBNBCommand().precmd("{}.show({})".format(class_name, obj_id))
+                HBNBCommand().onecmd(line)
+            self.assertEqual(obj.__str__(), output.getvalue().strip())
+
+class TestHBNBCommand_destroy(unittest.TestCase):
+    """ unittests for the show method """
+    def test_error1(self):
+        """ class name missing error """
+        h = "** class name missing **"
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("destroy")
+        self.assertEqual(h, output.getvalue().strip())
+        h = "*** Unknown syntax: .destroy()"
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd(".destroy()")
+        self.assertEqual(h, output.getvalue().strip())
+
+    def test_error2(self):
+        """ class does not exist """
+        h = "** class doesn't exist **"
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("destroy MyModel")
+        self.assertEqual(h, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            line = HBNBCommand().precmd("MyModel.destroy()")
+            HBNBCommand().onecmd(line)
+        self.assertEqual(h, output.getvalue().strip())
+
+    def test_error3(self):
+        """ instance id missing """
+        h = "** instance id missing **"
+        for class_name in class_list:
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("destroy {}".format(class_name))
+            self.assertEqual(h, output.getvalue().strip())
+            with patch("sys.stdout", new=StringIO()) as output:
+                line = HBNBCommand().precmd("{}.destroy()".format(class_name))
+                HBNBCommand().onecmd(line)
+            self.assertEqual(h, output.getvalue().strip())
+
+    def test_error4(self):
+        """ no instance found """
+        h = "** no instance found **"
+        for class_name in class_list:
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("destroy {} somerandomid".format(class_name))
+            self.assertEqual(h, output.getvalue().strip())
+            with patch("sys.stdout", new=StringIO()) as output:
+                line = HBNBCommand().precmd("{}.destroy(somerandomid)".format(class_name))
+                HBNBCommand().onecmd(line)
+            self.assertEqual(h, output.getvalue().strip())
+
+    def test_destroy_instance(self):
+        """ test if it shows the specified instance"""
+        for class_name in class_list:
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("create {}".format(class_name))
+            obj_id = output.getvalue().strip()
+            obj = storage.all()["{}.{}".format(class_name, obj_id)]
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("destroy {} {}".format(class_name, obj_id))
+            self.assertEqual("", output.getvalue().strip())
+            self.assertNotIn("{}.{}".format(class_name, obj_id), storage.all())
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("create {}".format(class_name))
+            obj_id = output.getvalue().strip()
+            obj = storage.all()["{}.{}".format(class_name, obj_id)]
+            with patch("sys.stdout", new=StringIO()) as output:
+                line = HBNBCommand().precmd("{}.destroy({})".format(class_name, obj_id))
+                HBNBCommand().onecmd(line)
+            self.assertEqual("", output.getvalue().strip())
+            self.assertNotIn("{}.{}".format(class_name, obj_id), storage.all())
+
+class TestHBNBCommand_all(unittest.TestCase):
+    """ unittests for the all method """
+    def test_error1(self):
+        """ class does not exist """
+        h = "** class doesn't exist **"
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("all MyModel")
+        self.assertEqual(h, output.getvalue().strip())
+        with patch("sys.stdout", new=StringIO()) as output:
+            line = HBNBCommand().precmd("MyModel.all()")
+            HBNBCommand().onecmd(line)
+        self.assertEqual(h, output.getvalue().strip())
