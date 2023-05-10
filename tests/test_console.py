@@ -337,6 +337,29 @@ class TestHBNBCommand_all(unittest.TestCase):
             HBNBCommand().onecmd(line)
         self.assertEqual(h, output.getvalue().strip())
 
-    def test_all_allobjects(unittest.TestCase):
+    def test_all_allobjects(self):
         """ unittests for all method for all objects """
+        for class_name in class_list:
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("create {}".format(class_name))
+        for class_name in class_list:
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("all")
+        self.assertIn("{}".format(class_name), output.getvalue().strip())
 
+    def test_all_classobjects(self):
+        """ unittests for all method for specific class objects"""
+        for class_name in class_list:
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("create {}".format(class_name))
+        for class_name in class_list:
+            with patch("sys.stdout", new=StringIO()) as output:
+                HBNBCommand().onecmd("all {}".format(class_name))
+            self.assertIn("{}".format(class_name), output.getvalue().strip())
+            with patch("sys.stdout", new=StringIO()) as output:
+                line = HBNBCommand().precmd("{}.all()".format(class_name))
+                HBNBCommand().onecmd(line)
+            self.assertIn("{}".format(class_name), output.getvalue().strip())
+            for ch_class in class_list:
+                if ch_class != class_name:
+                    self.assertNotIn("{}".format(ch_class), output.getvalue().strip())
