@@ -336,3 +336,7 @@ class TestHBNBCommand_all(unittest.TestCase):
             line = HBNBCommand().precmd("MyModel.all()")
             HBNBCommand().onecmd(line)
         self.assertEqual(h, output.getvalue().strip())
+
+    def test_all_allobjects(unittest.TestCase):
+        """ unittests for all method for all objects """
+
