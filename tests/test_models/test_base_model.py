@@ -11,19 +11,19 @@ import models.base_model
 
 class TestBaseModel(unittest.TestCase):
     """Contains the actual tests"""
-    """ def test_basemodel_conformity_pycode(self):"""
+    def test_basemodel_conformity_pycode(self):
         """Tests base_model.py's adherence to pycodestyle."""
-    """    pycode = pycodestyle.StyleGuide(quiet=True)
-        res = pycode.check_files(['models.base_model.py'])
+        pycode = pycodestyle.StyleGuide(quiet=True)
+        res = pycode.check_files(['models/base_model.py'])
         self.assertEqual(res.total_errors, 0,
-                         "Found code style errors (and warnings).")"""
+                         "Found code style errors (and warnings).")
 
-    """def test_basemodel_module_docstring(self):"""
+    def test_basemodel_module_docstring(self):
         """Tests existence of basemodel.py module docstring"""
-        """self.assertIsNot(base_model.__doc__, None,
+        self.assertIsNot(models.base_model.__doc__, None,
                          "base_model.py needs a docstring")
-        self.assertTrue(len(base_model.__doc__) >= 1,
-                        "base_model.py needs a docstring")"""
+        self.assertTrue(len(models.base_model.__doc__) >= 1,
+                        "base_model.py needs a docstring")
     def setUp(self):
         self.model1 = BaseModel()
         self.model2 = BaseModel()
