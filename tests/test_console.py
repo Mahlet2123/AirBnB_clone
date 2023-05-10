@@ -139,6 +139,10 @@ class TestHBNBCommand_create(unittest.TestCase):
             HBNBCommand().onecmd("create BaseModel")
         key = "BaseModel.{}".format(output.getvalue().strip())
         self.assertIn(key, storage.all())
+        with patch("sys.stdout", new=StringIO()) as output:
+            HBNBCommand().onecmd("BaseModel.create()")
+        s = "*** Unknown syntax: BaseModel.create()"
+        self.assertEqual(s, output.getvalue().strip())
 
     def test_create_user(self):
         """ test the do_create method """
