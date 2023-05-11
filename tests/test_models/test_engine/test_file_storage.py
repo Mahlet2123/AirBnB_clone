@@ -36,7 +36,7 @@ class TestFilestorage (unittest.TestCase):
 
     def test_file_path(self):
         """ test if file path is not none """
-        self.assertEqual(str, type(FileStorage._FileStorage__file_path))
+        self.assertEqual(str, type(self.storage._FileStorage__file_path))
 
     def test_objects_dict(self):
         """ test if __objects is a dictionary """
