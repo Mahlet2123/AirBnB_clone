@@ -10,6 +10,23 @@ from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
 
 
+class TestFileStorage_instantiation(unittest.TestCase):
+    """Unittests for testing instantiation of the FileStorage class."""
+    def test_FileStorage_instantiation_no_args(self):
+        self.assertEqual(type(FileStorage()), FileStorage)
+
+    def test_FileStorage_instantiation_with_arg(self):
+        with self.assertRaises(TypeError):
+            FileStorage(None)
+
+    def test_file_path(self):
+        """ test if file path is not none """
+        self.assertEqual(str, type(FileStorage._FileStorage__file_path))
+
+    def test_objects_dict(self):
+        """ test if __objects is a dictionary """
+        self.assertEqual(dict, type(FileStorage._FileStorage__objects))
+
 class TestFilestorage (unittest.TestCase):
     """ class for testing the file storage module """
     def setUp(self):
@@ -33,14 +50,6 @@ class TestFilestorage (unittest.TestCase):
                 "file_storage needs a docstring")
         self.assertTrue(len(models.engine.file_storage.__doc__) >= 1,
                 "file_storage needs a docstring")
-
-    def test_file_path(self):
-        """ test if file path is not none """
-        self.assertEqual(str, type(self.storage._FileStorage__file_path))
-
-    def test_objects_dict(self):
-        """ test if __objects is a dictionary """
-        self.assertEqual(dict, type(self.storage._FileStorage__objects))
 
     def test_new(self):
         """ Test that new() sets the object in __objects"""
