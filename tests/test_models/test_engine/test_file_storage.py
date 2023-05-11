@@ -34,6 +34,14 @@ class TestFilestorage (unittest.TestCase):
         self.assertTrue(len(models.engine.file_storage.__doc__) >= 1,
                 "file_storage needs a docstring")
 
+    def test_file_path(self):
+        """ test if file path is not none """
+        self.assertNotEqual(self.storage._FileStorage__file_path, None)
+
+    def test_objects_dict(self):
+        """ test if __objects is a dictionary """
+        self.assertEqual(type(self.storage._FileStorage__objects), dict)
+
     def test_new(self):
         """ Test that new() sets the object in __objects"""
         obj = BaseModel()

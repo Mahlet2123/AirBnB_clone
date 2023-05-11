@@ -6,7 +6,7 @@ import json
 class FileStorage():
     """ serializes instances to a JSON file and
     deserializes JSON file to instances"""
-    
+
     def __init__(self):
         """ init method """
         self.__file_path = "file.json"
